@@ -153,25 +153,77 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   }
 
   Widget _buildCompletion(ExerciseProvider provider) {
-    return Center(
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.stars, size: 100, color: Colors.orange),
-          const SizedBox(height: 24),
+          const Icon(Icons.stars, size: 80, color: Colors.orange),
+          const SizedBox(height: 16),
           const Text(
             'أحسنت! لقد أكملت التمرين',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 8),
           Text(
-            'درجتك: ${provider.score}%',
-            style: const TextStyle(fontSize: 40, color: EchoLearnTheme.primaryNavy, fontWeight: FontWeight.w900),
+            'درجتك: ${provider.scorePercentage}%',
+            style: const TextStyle(fontSize: 36, color: EchoLearnTheme.primaryNavy, fontWeight: FontWeight.w900),
           ),
-          const SizedBox(height: 40),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('العودة للقائمة الرئيسية'),
+          const SizedBox(height: 24),
+          const Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              'ملخص الإجابات:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: EchoLearnTheme.primaryNavy),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Expanded(
+            child: ListView.builder(
+              itemCount: provider.exercises.length,
+              itemBuilder: (context, index) {
+                final exercise = provider.exercises[index];
+                final isCorrect = provider.userResults.length > index ? provider.userResults[index] : false;
+                
+                return Card(
+                  margin: const EdgeInsets.only(bottom: 8),
+                  child: ListTile(
+                    leading: Icon(
+                      isCorrect ? Icons.check_circle : Icons.cancel,
+                      color: isCorrect ? EchoLearnTheme.successGreen : EchoLearnTheme.errorRed,
+                    ),
+                    title: Text(
+                      exercise.prompt,
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'الصوت: ${exercise.ttsText}',
+                          style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                        ),
+                        if (!isCorrect)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4.0),
+                            child: Text(
+                              'الإجابة الصحيحة: ${exercise.correctAnswer}',
+                              style: const TextStyle(fontSize: 12, color: EchoLearnTheme.successGreen, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 24),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('العودة للقائمة الرئيسية'),
+            ),
           ),
         ],
       ),
