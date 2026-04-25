@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import '../models/exercise_model.dart';
-import '../models/skill_category.dart';
 import 'database_helper.dart';
 import '../models/user_progress.dart';
 
@@ -466,6 +465,621 @@ class ExerciseProvider with ChangeNotifier {
             options: ['أول', 'وسط', 'آخر'],
             correctAnswer: 'آخر',
             ttsText: 'فأس',
+          ),
+        ],
+      ];
+
+      // Pick one random exercise from each pool
+      return pools.map((pool) => pool[random.nextInt(pool.length)]).toList();
+    }
+
+    if (skillId == 'aud_3') {
+      final random = Random();
+      
+      final pools = [
+        // Category 1: Identifying Continuous Sound (True/False)
+        [
+          Exercise(
+            id: 'aud_3_1_a',
+            skillId: 'aud_3',
+            prompt: 'هل هذا الصوت يستمر ولا ينقطع؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'نعم',
+            ttsText: 'س . س . س',
+          ),
+          Exercise(
+            id: 'aud_3_1_b',
+            skillId: 'aud_3',
+            prompt: 'هل يمكن مد هذا الصوت لفترة طويلة؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'نعم',
+            ttsText: 'ش . ش . ش',
+          ),
+          Exercise(
+            id: 'aud_3_1_c',
+            skillId: 'aud_3',
+            prompt: 'هل تلاحظ أن هذا الصوت متصل ومستمر؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'نعم',
+            ttsText: 'م . م . م',
+          ),
+        ],
+        // Category 2: Identifying Interrupted Sound (True/False)
+        [
+          Exercise(
+            id: 'aud_3_2_a',
+            skillId: 'aud_3',
+            prompt: 'هل ينقطع هذا الصوت فجأة؟ (متقطع)',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'نعم',
+            ttsText: 'ب . ب . ب',
+          ),
+          Exercise(
+            id: 'aud_3_2_b',
+            skillId: 'aud_3',
+            prompt: 'هل هذا الصوت قصير ويتوقف بسرعة؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'نعم',
+            ttsText: 'ط . ط . ط',
+          ),
+          Exercise(
+            id: 'aud_3_2_c',
+            skillId: 'aud_3',
+            prompt: 'هل تحس بانحباس الصوت هنا؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'نعم',
+            ttsText: 'ق . ق . ق',
+          ),
+        ],
+        // Category 3: Choosing the Continuous Sound (Multiple Choice)
+        [
+          Exercise(
+            id: 'aud_3_3_a',
+            skillId: 'aud_3',
+            prompt: 'أي من هذه الأصوات يمكن أن يستمر طويلاً؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['ب', 'س', 'ت'],
+            correctAnswer: 'س',
+            ttsText: 'ب... س... ت...',
+          ),
+          Exercise(
+            id: 'aud_3_3_b',
+            skillId: 'aud_3',
+            prompt: 'اختر الصوت المستمر:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['د', 'ك', 'م'],
+            correctAnswer: 'م',
+            ttsText: 'د... ك... م...',
+          ),
+          Exercise(
+            id: 'aud_3_3_c',
+            skillId: 'aud_3',
+            prompt: 'ما هو الصوت الذي لا ينقطع فوراً؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['ج', 'ش', 'ق'],
+            correctAnswer: 'ش',
+            ttsText: 'ج... ش... ق...',
+          ),
+        ],
+        // Category 4: Choosing the Interrupted Sound (Multiple Choice)
+        [
+          Exercise(
+            id: 'aud_3_4_a',
+            skillId: 'aud_3',
+            prompt: 'أي من هذه الأصوات ينقطع بسرعة (متقطع)؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['ف', 'ط', 'ل'],
+            correctAnswer: 'ط',
+            ttsText: 'ف... ط... ل...',
+          ),
+          Exercise(
+            id: 'aud_3_4_b',
+            skillId: 'aud_3',
+            prompt: 'اختر الصوت المتقطع (الشديد):',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['ر', 'ن', 'ب'],
+            correctAnswer: 'ب',
+            ttsText: 'ر... ن... ب...',
+          ),
+          Exercise(
+            id: 'aud_3_4_c',
+            skillId: 'aud_3',
+            prompt: 'ما هو الصوت الذي يتوقف فجأة؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['ز', 'ح', 'د'],
+            correctAnswer: 'د',
+            ttsText: 'ز... ح... د...',
+          ),
+        ],
+        // Category 5: Sounds in Words
+        [
+          Exercise(
+            id: 'aud_3_5_a',
+            skillId: 'aud_3',
+            prompt: 'ما نوع الصوت الأول في كلمة (سيارة)؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['مستمر', 'متقطع'],
+            correctAnswer: 'مستمر',
+            ttsText: 'سيارة',
+          ),
+          Exercise(
+            id: 'aud_3_5_b',
+            skillId: 'aud_3',
+            prompt: 'ما نوع الصوت الأول في كلمة (كتاب)؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['مستمر', 'متقطع'],
+            correctAnswer: 'متقطع',
+            ttsText: 'كتاب',
+          ),
+          Exercise(
+            id: 'aud_3_5_c',
+            skillId: 'aud_3',
+            prompt: 'ما نوع الصوت الأول في كلمة (نور)؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['مستمر', 'متقطع'],
+            correctAnswer: 'مستمر',
+            ttsText: 'نور',
+          ),
+        ],
+        // Category 6: Comparisons
+        [
+          Exercise(
+            id: 'aud_3_6_a',
+            skillId: 'aud_3',
+            prompt: 'استمع: (ف... ت...). أيهما الصوت المتقطع؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['ف', 'ت'],
+            correctAnswer: 'ت',
+            ttsText: 'ف... ت...',
+          ),
+          Exercise(
+            id: 'aud_3_6_b',
+            skillId: 'aud_3',
+            prompt: 'استمع: (ك... ر...). أيهما الصوت المستمر؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['ك', 'ر'],
+            correctAnswer: 'ر',
+            ttsText: 'ك... ر...',
+          ),
+          Exercise(
+            id: 'aud_3_6_c',
+            skillId: 'aud_3',
+            prompt: 'استمع: (ش... ج...). أيهما الصوت المتقطع؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['ش', 'ج'],
+            correctAnswer: 'ج',
+            ttsText: 'ش... ج...',
+          ),
+        ],
+      ];
+
+      // Pick one random exercise from each pool
+      return pools.map((pool) => pool[random.nextInt(pool.length)]).toList();
+    }
+
+    if (skillId == 'aud_4') {
+      final random = Random();
+      
+      final pools = [
+        // Category 1: Minimal Pairs (باب/تاب/ناب)
+        [
+          Exercise(
+            id: 'aud_4_1_a',
+            skillId: 'aud_4',
+            prompt: 'استمع للكلمة واختر ما يطابقها:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['باب', 'تاب', 'ناب'],
+            correctAnswer: 'تاب',
+            ttsText: 'تاب',
+          ),
+          Exercise(
+            id: 'aud_4_1_b',
+            skillId: 'aud_4',
+            prompt: 'أي كلمة سمعت للتو؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['باب', 'تاب', 'ناب'],
+            correctAnswer: 'باب',
+            ttsText: 'باب',
+          ),
+          Exercise(
+            id: 'aud_4_1_c',
+            skillId: 'aud_4',
+            prompt: 'ما هي الكلمة المنطوقة؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['باب', 'تاب', 'ناب'],
+            correctAnswer: 'ناب',
+            ttsText: 'ناب',
+          ),
+        ],
+        // Category 2: Minimal Pairs (قلم/علم/ألم)
+        [
+          Exercise(
+            id: 'aud_4_2_a',
+            skillId: 'aud_4',
+            prompt: 'اختر الكلمة التي سمعتها:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['قلم', 'علم', 'ألم'],
+            correctAnswer: 'قلم',
+            ttsText: 'قلم',
+          ),
+          Exercise(
+            id: 'aud_4_2_b',
+            skillId: 'aud_4',
+            prompt: 'ما الكلمة التي قيلت؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['قلم', 'علم', 'ألم'],
+            correctAnswer: 'علم',
+            ttsText: 'علم',
+          ),
+          Exercise(
+            id: 'aud_4_2_c',
+            skillId: 'aud_4',
+            prompt: 'استمع جيداً واختر الكلمة:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['قلم', 'علم', 'ألم'],
+            correctAnswer: 'ألم',
+            ttsText: 'ألم',
+          ),
+        ],
+        // Category 3: Minimal Pairs (تين/طين/سين)
+        [
+          Exercise(
+            id: 'aud_4_3_a',
+            skillId: 'aud_4',
+            prompt: 'الكلمة المسموعة هي:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['تين', 'طين', 'سين'],
+            correctAnswer: 'طين',
+            ttsText: 'طين',
+          ),
+          Exercise(
+            id: 'aud_4_3_b',
+            skillId: 'aud_4',
+            prompt: 'اختر الكلمة التي سمعتها:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['تين', 'طين', 'سين'],
+            correctAnswer: 'تين',
+            ttsText: 'تين',
+          ),
+          Exercise(
+            id: 'aud_4_3_c',
+            skillId: 'aud_4',
+            prompt: 'أي من هذه الكلمات تم نطقها؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['تين', 'طين', 'سين'],
+            correctAnswer: 'سين',
+            ttsText: 'سين',
+          ),
+        ],
+        // Category 4: Same or Different (True/False)
+        [
+          Exercise(
+            id: 'aud_4_4_a',
+            skillId: 'aud_4',
+            prompt: 'هل الكلمتان اللتان سمعتهما متطابقتان؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'لا',
+            ttsText: 'قلم . علم',
+          ),
+          Exercise(
+            id: 'aud_4_4_b',
+            skillId: 'aud_4',
+            prompt: 'هل نطقت نفس الكلمة مرتين؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'نعم',
+            ttsText: 'باب . باب',
+          ),
+          Exercise(
+            id: 'aud_4_4_c',
+            skillId: 'aud_4',
+            prompt: 'هل الكلمتان متشابهتان تماماً؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'لا',
+            ttsText: 'تين . طين',
+          ),
+        ],
+        // Category 5: Minimal Pairs - Last letter (فاس/فأر/فاز)
+        [
+          Exercise(
+            id: 'aud_4_5_a',
+            skillId: 'aud_4',
+            prompt: 'استمع للكلمة واخترها:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['فاس', 'فأر', 'فاز'],
+            correctAnswer: 'فاس',
+            ttsText: 'فاس',
+          ),
+          Exercise(
+            id: 'aud_4_5_b',
+            skillId: 'aud_4',
+            prompt: 'أي كلمة سمعت؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['فاس', 'فأر', 'فاز'],
+            correctAnswer: 'فاز',
+            ttsText: 'فاز',
+          ),
+          Exercise(
+            id: 'aud_4_5_c',
+            skillId: 'aud_4',
+            prompt: 'ما هي الكلمة الصحيحة؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['فاس', 'فأر', 'فاز'],
+            correctAnswer: 'فأر',
+            ttsText: 'فأر',
+          ),
+        ],
+        // Category 6: Minimal Pairs - Middle letter (سار/سور/سير)
+        [
+          Exercise(
+            id: 'aud_4_6_a',
+            skillId: 'aud_4',
+            prompt: 'ما الكلمة التي سمعتها؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['سار', 'سور', 'سير'],
+            correctAnswer: 'سور',
+            ttsText: 'سور',
+          ),
+          Exercise(
+            id: 'aud_4_6_b',
+            skillId: 'aud_4',
+            prompt: 'استمع واختر الكلمة المطابقة:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['سار', 'سور', 'سير'],
+            correctAnswer: 'سير',
+            ttsText: 'سير',
+          ),
+          Exercise(
+            id: 'aud_4_6_c',
+            skillId: 'aud_4',
+            prompt: 'الكلمة المسموعة هي:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['سار', 'سور', 'سير'],
+            correctAnswer: 'سار',
+            ttsText: 'سار',
+          ),
+        ],
+      ];
+
+      // Pick one random exercise from each pool
+      return pools.map((pool) => pool[random.nextInt(pool.length)]).toList();
+    }
+
+    if (skillId == 'aud_5') {
+      final random = Random();
+      
+      final pools = [
+        // Category 1: Voweled Letters (Fatha, Damma, Kasra)
+        [
+          Exercise(
+            id: 'aud_5_1_a',
+            skillId: 'aud_5',
+            prompt: 'أي حرف يطابق الصوت المسموع؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['بَ', 'بُ', 'بِ'],
+            correctAnswer: 'بَ',
+            ttsText: 'بَ',
+          ),
+          Exercise(
+            id: 'aud_5_1_b',
+            skillId: 'aud_5',
+            prompt: 'اختر الحرف المطابق للصوت:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['تَ', 'تُ', 'تِ'],
+            correctAnswer: 'تُ',
+            ttsText: 'تُ',
+          ),
+          Exercise(
+            id: 'aud_5_1_c',
+            skillId: 'aud_5',
+            prompt: 'استمع جيداً واختر الحرف:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['سَ', 'سُ', 'سِ'],
+            correctAnswer: 'سِ',
+            ttsText: 'سِ',
+          ),
+        ],
+        // Category 2: Long Vowels (Madd)
+        [
+          Exercise(
+            id: 'aud_5_2_a',
+            skillId: 'aud_5',
+            prompt: 'ما المقطع المطابق لهذا الصوت؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['بَا', 'بُو', 'بِي'],
+            correctAnswer: 'بَا',
+            ttsText: 'بَا',
+          ),
+          Exercise(
+            id: 'aud_5_2_b',
+            skillId: 'aud_5',
+            prompt: 'أي مقطع سمعته للتو؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['سَا', 'سُو', 'سِي'],
+            correctAnswer: 'سُو',
+            ttsText: 'سُو',
+          ),
+          Exercise(
+            id: 'aud_5_2_c',
+            skillId: 'aud_5',
+            prompt: 'استمع واختر المقطع الصحيح:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['مَا', 'مُو', 'مِي'],
+            correctAnswer: 'مِي',
+            ttsText: 'مِي',
+          ),
+        ],
+        // Category 3: Sound to Word (Short vs Long)
+        [
+          Exercise(
+            id: 'aud_5_3_a',
+            skillId: 'aud_5',
+            prompt: 'أي كلمة سمعتها؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['قَلَمٌ', 'قَالَمٌ'],
+            correctAnswer: 'قَلَمٌ',
+            ttsText: 'قَلَمٌ',
+          ),
+          Exercise(
+            id: 'aud_5_3_b',
+            skillId: 'aud_5',
+            prompt: 'الكلمة المطابقة للصوت هي:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['نَامَ', 'نَمَ'],
+            correctAnswer: 'نَامَ',
+            ttsText: 'نَامَ',
+          ),
+          Exercise(
+            id: 'aud_5_3_c',
+            skillId: 'aud_5',
+            prompt: 'اختر ما سمعته:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['فِيلٌ', 'فِلٌ'],
+            correctAnswer: 'فِيلٌ',
+            ttsText: 'فِيلٌ',
+          ),
+        ],
+        // Category 4: Sounding Word to Starting Letter
+        [
+          Exercise(
+            id: 'aud_5_4_a',
+            skillId: 'aud_5',
+            prompt: 'الكلمة التي سمعتها تبدأ بحرف:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['س', 'ص', 'ث'],
+            correctAnswer: 'ص',
+            ttsText: 'صُورَةٌ',
+          ),
+          Exercise(
+            id: 'aud_5_4_b',
+            skillId: 'aud_5',
+            prompt: 'ما الحرف الأول للكلمة المسموعة؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['ت', 'ط', 'د'],
+            correctAnswer: 'ط',
+            ttsText: 'طَيَّارَةٌ',
+          ),
+          Exercise(
+            id: 'aud_5_4_c',
+            skillId: 'aud_5',
+            prompt: 'الحرف الأول للصوت المسموع هو:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['ز', 'ذ', 'ظ'],
+            correctAnswer: 'ظ',
+            ttsText: 'ظِلٌّ',
+          ),
+        ],
+        // Category 5: True/False Word Match
+        [
+          Exercise(
+            id: 'aud_5_5_a',
+            skillId: 'aud_5',
+            prompt: 'هل يتطابق هذا الصوت مع الصورة؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'نعم',
+            ttsText: 'كَلْبٌ',
+            imageAsset: 'assets/images/dog.png',
+          ),
+          Exercise(
+            id: 'aud_5_5_b',
+            skillId: 'aud_5',
+            prompt: 'هل هذا هو صوت الحيوان في الصورة؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'لا',
+            ttsText: 'بَطَّةٌ',
+            imageAsset: 'assets/images/cat.png',
+          ),
+          Exercise(
+            id: 'aud_5_5_c',
+            skillId: 'aud_5',
+            prompt: 'هل الصوت المسموع يطابق الصورة؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'نعم',
+            ttsText: 'عُصْفُورٌ',
+            imageAsset: 'assets/images/bird.png',
+          ),
+        ],
+        // Category 6: True/False Letter Match
+        [
+          Exercise(
+            id: 'aud_5_6_a',
+            skillId: 'aud_5',
+            prompt: 'هل الصورة تعبر عن الصوت المسموع؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'لا',
+            ttsText: 'كَلْبٌ',
+            imageAsset: 'assets/images/bird.png',
+          ),
+          Exercise(
+            id: 'aud_5_6_b',
+            skillId: 'aud_5',
+            prompt: 'هل يتطابق الصوت مع الصورة؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'نعم',
+            ttsText: 'قِطَّةٌ',
+            imageAsset: 'assets/images/cat.png',
+          ),
+          Exercise(
+            id: 'aud_5_6_c',
+            skillId: 'aud_5',
+            prompt: 'استمع وانظر، هل هما متطابقان؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'لا',
+            ttsText: 'عُصْفُورٌ',
+            imageAsset: 'assets/images/dog.png',
           ),
         ],
       ];

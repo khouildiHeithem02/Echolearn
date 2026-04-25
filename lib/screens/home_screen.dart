@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../models/skill_category.dart';
 import '../utils/theme.dart';
 import 'exercise_screen.dart'; // We'll create this next
-import '../models/exercise_model.dart';
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -93,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: EchoLearnTheme.primaryNavy.withOpacity(0.1),
+                      color: EchoLearnTheme.primaryNavy.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(

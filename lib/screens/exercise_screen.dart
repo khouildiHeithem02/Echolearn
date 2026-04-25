@@ -81,6 +81,18 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           builder: (context, constraints) {
             return Column(
               children: [
+                if (exercise.imageAsset.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 24.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        exercise.imageAsset,
+                        height: 150,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
                 SizedBox(
                   height: 120,
                   child: Row(
