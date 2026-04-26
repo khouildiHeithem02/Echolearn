@@ -6,6 +6,9 @@ class AudioService {
   final FlutterTts _tts = FlutterTts();
   final AudioPlayer _player = AudioPlayer();
 
+  // Expose player for listening to events (e.g., onPlayerComplete)
+  AudioPlayer get player => _player;
+
   AudioService._init() {
     _initTts();
   }
@@ -57,6 +60,7 @@ class AudioService {
   Future<void> playAsset(String path) async {
     if (path.isEmpty) return;
     await _player.stop();
+    await _player.setReleaseMode(ReleaseMode.stop); // Play once, no loop
     await _player.play(AssetSource(path));
   }
 

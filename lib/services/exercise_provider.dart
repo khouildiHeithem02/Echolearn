@@ -1088,6 +1088,553 @@ class ExerciseProvider with ChangeNotifier {
       return pools.map((pool) => pool[random.nextInt(pool.length)]).toList();
     }
 
+    if (skillId == 'aud_6') {
+      final random = Random();
+      
+      final pools = [
+        // Category 1: Question vs Statement (جملة استفهامية vs خبرية)
+        [
+          Exercise(
+            id: 'aud_6_1_a',
+            skillId: 'aud_6',
+            prompt: 'هل هذه جملة (خبرية) أم (استفهامية)؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['خبرية', 'استفهامية'],
+            correctAnswer: 'استفهامية',
+            ttsText: 'هَلْ ذَهَبْتَ إِلَى المَدْرَسَةِ؟',
+          ),
+          Exercise(
+            id: 'aud_6_1_b',
+            skillId: 'aud_6',
+            prompt: 'ما نوع هذه الجملة؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['خبرية', 'استفهامية'],
+            correctAnswer: 'خبرية',
+            ttsText: 'أَنَا ذَهَبْتُ إِلَى المَدْرَسَةِ اليَوْمَ.',
+          ),
+          Exercise(
+            id: 'aud_6_1_c',
+            skillId: 'aud_6',
+            prompt: 'استمع جيداً، هل هذا سؤال؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['سؤال', 'جملة عادية'],
+            correctAnswer: 'سؤال',
+            ttsText: 'مَتَى سَنَأْكُلُ الغَدَاءَ؟',
+          ),
+        ],
+        // Category 2: Exclamatory vs Normal (جملة تعجبية vs خبرية)
+        [
+          Exercise(
+            id: 'aud_6_2_a',
+            skillId: 'aud_6',
+            prompt: 'هل هذه جملة (تعجبية) أم (خبرية)؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['تعجبية', 'خبرية'],
+            correctAnswer: 'تعجبية',
+            ttsText: 'مَا أَجْمَلَ السَّمَاءَ اليَوْمَ!',
+          ),
+          Exercise(
+            id: 'aud_6_2_b',
+            skillId: 'aud_6',
+            prompt: 'ما نوع هذا التعبير الصوتي؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['تعجب', 'إخبار'],
+            correctAnswer: 'تعجب',
+            ttsText: 'يَا لَهُ مِنْ طَعَامٍ لَذِيذٍ!',
+          ),
+          Exercise(
+            id: 'aud_6_2_c',
+            skillId: 'aud_6',
+            prompt: 'هل الجملة تدل على (التعجب) أم (وصف عادي)؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['تعجب', 'وصف عادي'],
+            correctAnswer: 'وصف عادي',
+            ttsText: 'السَّمَاءُ لَوْنُهَا أَزْرَقُ.',
+          ),
+        ],
+        // Category 3: Emotion in Tone (الفرح vs الحزن)
+        [
+          Exercise(
+            id: 'aud_6_3_a',
+            skillId: 'aud_6',
+            prompt: 'ما هي المشاعر التي تسمعها في نبرة الصوت؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['فرح', 'حزن', 'غضب'],
+            correctAnswer: 'فرح',
+            ttsText: 'رَائِع! لَقَدْ نَجَحْتُ فِي الاخْتِبَارِ!',
+          ),
+          Exercise(
+            id: 'aud_6_3_b',
+            skillId: 'aud_6',
+            prompt: 'هل يبدو المتحدث (حزيناً) أم (سعيداً)؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['سعيد', 'حزين'],
+            correctAnswer: 'حزين',
+            ttsText: 'أَنَا أَشْعُرُ بِالوَحْدَةِ بَعْدَ سَفَرِ صَدِيقِي.',
+          ),
+          Exercise(
+            id: 'aud_6_3_c',
+            skillId: 'aud_6',
+            prompt: 'ميز نبرة الصوت:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['هادئة', 'غاضبة'],
+            correctAnswer: 'غاضبة',
+            ttsText: 'لا تَفْعَلْ ذَلِكَ مَرَّةً أُخْرَى!',
+          ),
+        ],
+        // Category 4: Emphasis (التوكيد)
+        [
+          Exercise(
+            id: 'aud_6_4_a',
+            skillId: 'aud_6',
+            prompt: 'هل الجملة تحتوي على نبرة توكيد قوية؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'نعم',
+            ttsText: 'إِنَّ الصِّدْقَ خُلُقٌ عَظِيمٌ.',
+          ),
+          Exercise(
+            id: 'aud_6_4_b',
+            skillId: 'aud_6',
+            prompt: 'هل هذه الجملة تدل على (الشك) أم (التأكيد)؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['تأكيد', 'شك'],
+            correctAnswer: 'تأكيد',
+            ttsText: 'قَدْ أَفْلَحَ المُؤْمِنُونَ.',
+          ),
+        ],
+        // Category 5: Rhythm (الإيقاع)
+        [
+          Exercise(
+            id: 'aud_6_5_a',
+            skillId: 'aud_6',
+            prompt: 'هل إيقاع الكلمات متناسق وموزون؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'نعم',
+            ttsText: 'كِتَابِي كِتَابِي .. هُوَ لِي خَيْرُ صَحَابِ',
+          ),
+          Exercise(
+            id: 'aud_6_5_b',
+            skillId: 'aud_6',
+            prompt: 'هل هذا إيقاع سريع أم بطيء؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['سريع', 'بطيء'],
+            correctAnswer: 'بطيء',
+            ttsText: 'فِي .. هُدُوءِ .. اللَّيْلِ .. نَنَامُ .. بِأَمَانٍ.',
+          ),
+        ],
+        // Category 6: Mixed Tone Discrimination
+        [
+          Exercise(
+            id: 'aud_6_6_a',
+            skillId: 'aud_6',
+            prompt: 'هل هذه الجملة تطلب معلومة (سؤال)؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'نعم',
+            ttsText: 'كَمْ السَّاعَةُ الآن؟',
+          ),
+          Exercise(
+            id: 'aud_6_6_b',
+            skillId: 'aud_6',
+            prompt: 'هل هذه جملة إخبارية بسيطة؟',
+            type: ExerciseType.trueFalse,
+            difficulty: difficulty,
+            correctAnswer: 'نعم',
+            ttsText: 'أَنَا أُحِبُّ القِرَاءَةَ.',
+          ),
+        ],
+      ];
+
+      // Pick one random exercise from each pool
+      return pools.map((pool) => pool[random.nextInt(pool.length)]).toList();
+    }
+
+    if (skillId == 'aud_7') {
+      final random = Random();
+      
+      final pools = [
+        // Category 1: 3-Number Sequence (تسلسل أرقام ثلاثي)
+        [
+          Exercise(
+            id: 'aud_7_1_a',
+            skillId: 'aud_7',
+            prompt: 'ما هو ترتيب الأرقام الذي سمعته؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['← 1 - 3 - 5', '← 5 - 3 - 1', '← 3 - 5 - 1'],
+            correctAnswer: '← 1 - 3 - 5',
+            ttsText: 'وَاحِد .. ثَلَاثَة .. خَمْسَة',
+          ),
+          Exercise(
+            id: 'aud_7_1_b',
+            skillId: 'aud_7',
+            prompt: 'اختر التسلسل الصحيح للأرقام:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['← 4 - 2 - 7', '← 7 - 2 - 4', '← 2 - 4 - 7'],
+            correctAnswer: '← 4 - 2 - 7',
+            ttsText: 'أَرْبَعَة .. اثْنَان .. سَبْعَة',
+          ),
+        ],
+        // Category 2: 4-Number Sequence (تسلسل أرقام رباعي)
+        [
+          Exercise(
+            id: 'aud_7_2_a',
+            skillId: 'aud_7',
+            prompt: 'أعد ترتيب الأرقام التي سمعتها:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['← 7 - 5 - 3 - 1', '← 1 - 3 - 5 - 7', '← 3 - 5 - 7 - 1'],
+            correctAnswer: '← 7 - 5 - 3 - 1',
+            ttsText: 'سَبْعَة .. خَمْسَة .. ثَلَاثَة .. وَاحِد',
+          ),
+          Exercise(
+            id: 'aud_7_2_b',
+            skillId: 'aud_7',
+            prompt: 'ما هي الأرقام بالترتيب؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['← 2 - 8 - 6 - 4', '← 4 - 6 - 8 - 2', '← 8 - 2 - 4 - 6'],
+            correctAnswer: '← 2 - 8 - 6 - 4',
+            ttsText: 'اثْنَان .. ثَمَانِيَة .. سِتَّة .. أَرْبَعَة',
+          ),
+        ],
+        // Category 3: 2-Word Sequence (تسلسل كلمات ثنائي)
+        [
+          Exercise(
+            id: 'aud_7_3_a',
+            skillId: 'aud_7',
+            prompt: 'ما هما الكلمتان اللتان سمعتهما بالترتيب؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['← تَعَلَّم - عَلِمَ', '← عَلِمَ - تَعَلَّم', '← تَعَلَّم - تَعَلَّم'],
+            correctAnswer: '← تَعَلَّم - عَلِمَ',
+            ttsText: 'تَعَلَّم .. عَلِمَ',
+          ),
+          Exercise(
+            id: 'aud_7_3_b',
+            skillId: 'aud_7',
+            prompt: 'اختر الكلمات بالترتيب الصحيح:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['← قَلَم - كِتَاب', '← كِتَاب - قَلَم', '← كِتَاب - كِتَاب'],
+            correctAnswer: '← قَلَم - كِتَاب',
+            ttsText: 'قَلَم .. كِتَاب',
+          ),
+        ],
+        // Category 4: 3-Word Sequence (تسلسل كلمات ثلاثي)
+        [
+          Exercise(
+            id: 'aud_7_4_a',
+            skillId: 'aud_7',
+            prompt: 'ما هو ترتيب الكلمات الثلاث؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['← شَمْس - قَمَر - نُجُوم', '← نُجُوم - قَمَر - شَمْس', '← قَمَر - نُجُوم - شَمْس'],
+            correctAnswer: '← شَمْس - قَمَر - نُجُوم',
+            ttsText: 'شَمْس .. قَمَر .. نُجُوم',
+          ),
+          Exercise(
+            id: 'aud_7_4_b',
+            skillId: 'aud_7',
+            prompt: 'اختر ترتيب الفواكه الذي سمعته:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['← تُفَّاح - مَوْز - عِنَب', '← مَوْز - تُفَّاح - عِنَب', '← عِنَب - مَوْز - تُفَّاح'],
+            correctAnswer: '← تُفَّاح - مَوْز - عِنَب',
+            ttsText: 'تُفَّاح .. مَوْز .. عِنَب',
+          ),
+        ],
+        // Category 5: 2-Letter Sequence (تسلسل حروف ثنائي)
+        [
+          Exercise(
+            id: 'aud_7_5_a',
+            skillId: 'aud_7',
+            prompt: 'ما هما الحرفان بالترتيب؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['← أ - ب', '← ب - أ', '← ت - أ'],
+            correctAnswer: '← أ - ب',
+            ttsText: 'أَلِف .. بَاء',
+          ),
+          Exercise(
+            id: 'aud_7_5_b',
+            skillId: 'aud_7',
+            prompt: 'اسمع جيداً واختر الحروف بالترتيب:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['← س - ص', '← ص - س', '← س - ش'],
+            correctAnswer: '← س - ص',
+            ttsText: 'سِين .. صَاد',
+          ),
+        ],
+        // Category 6: Reverse Memory (2 items) (ذاكرة عكسية - عنصرين)
+        [
+          Exercise(
+            id: 'aud_7_6_a',
+            skillId: 'aud_7',
+            prompt: 'ما هو "عكس" ترتيب الأرقام التي سمعتها؟ (من الآخر للأول)',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['1 - 9 →', '9 - 1 →', '1 - 1 →'],
+            correctAnswer: '1 - 9 →',
+            ttsText: 'وَاحِد .. تِسْعَة',
+          ),
+          Exercise(
+            id: 'aud_7_6_b',
+            skillId: 'aud_7',
+            prompt: 'أعد الكلمات بالعكس:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['جَبَل - بَحْر →', 'بَحْر - جَبَل →', 'جَبَل - جَبَل →'],
+            correctAnswer: 'جَبَل - بَحْر →',
+            ttsText: 'جَبَل .. بَحْر',
+          ),
+        ],
+      ];
+
+      // Pick one random exercise from each pool
+      return pools.map((pool) => pool[random.nextInt(pool.length)]).toList();
+    }
+
+    if (skillId == 'aud_8') {
+      final random = Random();
+      
+      final pools = [
+        // Category 1: Basic Words - Animals
+        [
+          Exercise(
+            id: 'aud_8_1_a',
+            skillId: 'aud_8',
+            prompt: 'قل كلمة: كَلْب',
+            type: ExerciseType.speak,
+            difficulty: difficulty,
+            correctAnswer: 'كلب',
+            ttsText: 'كَلْب',
+          ),
+          Exercise(
+            id: 'aud_8_1_b',
+            skillId: 'aud_8',
+            prompt: 'قل كلمة: قِطَّة',
+            type: ExerciseType.speak,
+            difficulty: difficulty,
+            correctAnswer: 'قطة',
+            ttsText: 'قِطَّة',
+          ),
+        ],
+        // Category 2: Basic Words - Fruits
+        [
+          Exercise(
+            id: 'aud_8_2_a',
+            skillId: 'aud_8',
+            prompt: 'انطق بوضوح: تُفَّاحَة',
+            type: ExerciseType.speak,
+            difficulty: difficulty,
+            correctAnswer: 'تفاحة',
+            ttsText: 'تُفَّاحَة',
+          ),
+          Exercise(
+            id: 'aud_8_2_b',
+            skillId: 'aud_8',
+            prompt: 'انطق بوضوح: مَوْزَة',
+            type: ExerciseType.speak,
+            difficulty: difficulty,
+            correctAnswer: 'موزة',
+            ttsText: 'مَوْزَة',
+          ),
+        ],
+        // Category 3: School Items
+        [
+          Exercise(
+            id: 'aud_8_3_a',
+            skillId: 'aud_8',
+            prompt: 'قل: قَلَم',
+            type: ExerciseType.speak,
+            difficulty: difficulty,
+            correctAnswer: 'قلم',
+            ttsText: 'قَلَم',
+          ),
+          Exercise(
+            id: 'aud_8_3_b',
+            skillId: 'aud_8',
+            prompt: 'قل: كِتَاب',
+            type: ExerciseType.speak,
+            difficulty: difficulty,
+            correctAnswer: 'كتاب',
+            ttsText: 'كِتَاب',
+          ),
+        ],
+        // Category 4: Family
+        [
+          Exercise(
+            id: 'aud_8_4_a',
+            skillId: 'aud_8',
+            prompt: 'انطق كلمة: بَابَا',
+            type: ExerciseType.speak,
+            difficulty: difficulty,
+            correctAnswer: 'بابا',
+            ttsText: 'بَابَا',
+          ),
+          Exercise(
+            id: 'aud_8_4_b',
+            skillId: 'aud_8',
+            prompt: 'انطق كلمة: مَامَا',
+            type: ExerciseType.speak,
+            difficulty: difficulty,
+            correctAnswer: 'ماما',
+            ttsText: 'مَامَا',
+          ),
+        ],
+        // Category 5: Nature
+        [
+          Exercise(
+            id: 'aud_8_5_a',
+            skillId: 'aud_8',
+            prompt: 'قل: شَمْس',
+            type: ExerciseType.speak,
+            difficulty: difficulty,
+            correctAnswer: 'شمس',
+            ttsText: 'شَمْس',
+          ),
+          Exercise(
+            id: 'aud_8_5_b',
+            skillId: 'aud_8',
+            prompt: 'قل: قَمَر',
+            type: ExerciseType.speak,
+            difficulty: difficulty,
+            correctAnswer: 'قمر',
+            ttsText: 'قَمَر',
+          ),
+        ],
+      ];
+
+      // Pick one random exercise from each pool
+      return pools.map((pool) => pool[random.nextInt(pool.length)]).toList();
+    }
+
+    if (skillId == 'aud_9') {
+      final random = Random();
+      
+      final pools = [
+        // Category 1: Animals - Dog (صوت حقيقي)
+        [
+          Exercise(
+            id: 'aud_9_1_a',
+            skillId: 'aud_9',
+            prompt: 'اسمع جيداً... ما هذا الحيوان؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['قطة', 'كلب', 'حصان'],
+            correctAnswer: 'كلب',
+            ttsText: 'هاو هاو',
+            audioAsset: 'audio/dog.ogg',
+          ),
+          Exercise(
+            id: 'aud_9_1_b',
+            skillId: 'aud_9',
+            prompt: 'هذا الصوت يعود لـ:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['قطة', 'أسد', 'كلب'],
+            correctAnswer: 'كلب',
+            ttsText: 'هاو هاو',
+            audioAsset: 'audio/dog.ogg',
+          ),
+        ],
+        // Category 2: Birds (صوت حقيقي)
+        [
+          Exercise(
+            id: 'aud_9_2_a',
+            skillId: 'aud_9',
+            prompt: 'اسمع هذا الصوت... من يغرد هكذا؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['دجاجة', 'عصفور', 'بطة'],
+            correctAnswer: 'عصفور',
+            ttsText: 'زقزقة الطيور',
+            audioAsset: 'audio/bird.ogg',
+          ),
+          Exercise(
+            id: 'aud_9_2_b',
+            skillId: 'aud_9',
+            prompt: 'هذا صوت طائر من نوع:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['غراب', 'حمامة', 'عصفور'],
+            correctAnswer: 'عصفور',
+            ttsText: 'زقزقة الطيور',
+            audioAsset: 'audio/bird.ogg',
+          ),
+        ],
+        // Category 3: Transportation - Train (صوت حقيقي)
+        [
+          Exercise(
+            id: 'aud_9_3_a',
+            skillId: 'aud_9',
+            prompt: 'ما هي وسيلة النقل صاحبة هذا الصوت؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['سيارة', 'طائرة', 'قطار'],
+            correctAnswer: 'قطار',
+            ttsText: 'صوت قطار',
+            audioAsset: 'audio/train.ogg',
+          ),
+          Exercise(
+            id: 'aud_9_3_b',
+            skillId: 'aud_9',
+            prompt: 'اسمع واختر وسيلة النقل الصحيحة:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['دراجة نارية', 'قطار', 'سفينة'],
+            correctAnswer: 'قطار',
+            ttsText: 'صوت قطار',
+            audioAsset: 'audio/train.ogg',
+          ),
+        ],
+        // Category 4: Nature - Rain (صوت حقيقي)
+        [
+          Exercise(
+            id: 'aud_9_4_a',
+            skillId: 'aud_9',
+            prompt: 'ما هذا الصوت الطبيعي؟',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['رياح', 'مطر', 'رعد'],
+            correctAnswer: 'مطر',
+            ttsText: 'صوت مطر',
+            audioAsset: 'audio/rain.ogg',
+          ),
+          Exercise(
+            id: 'aud_9_4_b',
+            skillId: 'aud_9',
+            prompt: 'هذا صوت من أصوات الطبيعة، اختر الصحيح:',
+            type: ExerciseType.multipleChoice,
+            difficulty: difficulty,
+            options: ['حريق', 'مطر', 'عاصفة رملية'],
+            correctAnswer: 'مطر',
+            ttsText: 'صوت مطر',
+            audioAsset: 'audio/rain.ogg',
+          ),
+        ],
+      ];
+
+      // Pick one random exercise from each pool
+      return pools.map((pool) => pool[random.nextInt(pool.length)]).toList();
+    }
+
     return [
       Exercise(
         id: 'default',

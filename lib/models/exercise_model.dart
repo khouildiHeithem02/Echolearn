@@ -5,6 +5,7 @@ enum ExerciseType {
   trueFalse,
   ordering,
   naming,
+  speak,
 }
 
 enum Difficulty { easy, medium, hard }
