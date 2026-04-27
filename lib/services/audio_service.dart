@@ -49,6 +49,8 @@ class AudioService {
     if (text.isEmpty) return;
     print("EchoLearn: Attempting to speak text: $text");
     await _tts.stop();
+    await _tts.setPitch(1.0); // Reset to normal
+    await _tts.setSpeechRate(0.5); // Reset to normal
     var result = await _tts.speak(text);
     if (result == 1) {
       print("EchoLearn: Speak command accepted by engine.");
@@ -57,11 +59,29 @@ class AudioService {
     }
   }
 
+  Future<void> speakGentle(String text) async {
+    if (text.isEmpty) return;
+    print("EchoLearn: Attempting to speak text gently: $text");
+    await _tts.stop();
+    await _tts.setPitch(1.6); // Higher pitch for a softer, more childlike/gentle voice
+    await _tts.setSpeechRate(0.35); // Slower rate for clarity and gentleness
+    var result = await _tts.speak(text);
+    if (result == 1) {
+      print("EchoLearn: Speak gentle command accepted by engine.");
+    } else {
+      print("EchoLearn: Speak gentle command rejected by engine (Result: $result).");
+    }
+  }
+
   Future<void> playAsset(String path) async {
     if (path.isEmpty) return;
-    await _player.stop();
-    await _player.setReleaseMode(ReleaseMode.stop); // Play once, no loop
-    await _player.play(AssetSource(path));
+    try {
+      await _player.stop();
+      await _player.setReleaseMode(ReleaseMode.stop); // Play once, no loop
+      await _player.play(AssetSource(path));
+    } catch (e) {
+      print("EchoLearn: Error playing asset $path: $e");
+    }
   }
 
   Future<void> stop() async {

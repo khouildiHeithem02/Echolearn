@@ -25,6 +25,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   double _level = 0.0;
   String _currentExerciseId = ''; // Track which question is active
   bool _isPlayingAudio = false;  // Prevent double-play
+  List<String> _shuffledOptions = []; // Shuffled options for the current exercise
 
   @override
   void initState() {
@@ -134,7 +135,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         if (mounted) setState(() => _isPlayingAudio = false);
       });
     } else {
-      AudioService.instance.speak(exercise.ttsText);
+      if (exercise.isGentle) {
+        AudioService.instance.speakGentle(exercise.ttsText);
+      } else {
+        AudioService.instance.speak(exercise.ttsText);
+      }
       // TTS has no completion stream, reset after estimated duration
       Future.delayed(const Duration(seconds: 4), () {
         if (mounted) setState(() => _isPlayingAudio = false);
@@ -165,6 +170,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             _currentExerciseId = exercise.id;
             _isPlayingAudio = false;
             _lastWords = '';
+            
+            // Shuffle options for the new exercise
+            _shuffledOptions = List<String>.from(exercise.options)..shuffle();
+            
             Future.microtask(() => _playExerciseAudio(exercise));
           }
 
@@ -191,7 +200,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 if (exercise.type == ExerciseType.trueFalse)
                   _buildTrueFalseOptions(provider)
                 else if (exercise.type == ExerciseType.multipleChoice)
-                  _buildMultipleChoiceOptions(provider, exercise.options)
+                  _buildMultipleChoiceOptions(provider, _shuffledOptions)
                 else if (exercise.type == ExerciseType.speak)
                   _buildSpeakOptions(provider, exercise),
               ],

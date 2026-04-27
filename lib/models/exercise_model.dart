@@ -21,6 +21,7 @@ class Exercise {
   final String audioAsset; // For environmental sounds
   final String imageAsset; // For visual prompts
   final String ttsText; // For dynamic speech
+  final bool isGentle; // For soft/gentle TTS parameters
 
   Exercise({
     required this.id,
@@ -33,6 +34,7 @@ class Exercise {
     this.audioAsset = '',
     this.imageAsset = '',
     this.ttsText = '',
+    this.isGentle = false,
   });
 
   Map<String, dynamic> toMap() {
