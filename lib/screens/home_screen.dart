@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/skill_category.dart';
 import '../utils/theme.dart';
-import 'exercise_screen.dart'; // We'll create this next
+import 'package:google_fonts/google_fonts.dart';
+import 'exercise_screen.dart'; 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -14,21 +15,44 @@ class HomeScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 180,
+            expandedHeight: 220,
             floating: false,
             pinned: true,
+            backgroundColor: EchoLearnTheme.primaryBlue,
             flexibleSpace: FlexibleSpaceBar(
-              title: const Text('إيكوليرن - EchoLearn'),
               background: Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [EchoLearnTheme.primaryNavy, EchoLearnTheme.accentCyan],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+                    colors: [EchoLearnTheme.primaryBlue, EchoLearnTheme.accentYellow],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                   ),
                 ),
-                child: const Center(
-                  child: Icon(Icons.record_voice_over, size: 80, color: Colors.white24),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(color: Colors.black12, blurRadius: 20, spreadRadius: 5)
+                        ],
+                      ),
+                      child: const Icon(Icons.face_retouching_natural, size: 60, color: EchoLearnTheme.softCoral),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      'إيكوليرن - EchoLearn',
+                      style: GoogleFonts.cairo(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                        shadows: [const Shadow(color: Colors.black26, blurRadius: 10, offset: Offset(2, 2))],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -53,16 +77,28 @@ class HomeScreen extends StatelessWidget {
 
   Widget _buildSectionHeader(String title, IconData icon) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
-      child: Row(
-        children: [
-          Icon(icon, color: EchoLearnTheme.primaryNavy),
-          const SizedBox(width: 8),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: EchoLearnTheme.primaryNavy),
-          ),
-        ],
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: EchoLearnTheme.primaryBlue.withValues(alpha: 0.15),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, color: EchoLearnTheme.primaryNavy, size: 28),
+            const SizedBox(width: 12),
+            Text(
+              title,
+              style: GoogleFonts.cairo(
+                fontSize: 20, 
+                fontWeight: FontWeight.bold, 
+                color: EchoLearnTheme.primaryNavy
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -73,46 +109,53 @@ class HomeScreen extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.85,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
+        childAspectRatio: 1.1,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
       ),
       itemCount: skills.length,
       itemBuilder: (context, index) {
         final skill = skills[index];
+        
         return InkWell(
           onTap: () => _navigateToExercise(context, skill),
           child: Card(
+            elevation: 3,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: EchoLearnTheme.primaryNavy.withValues(alpha: 0.1),
+                      color: EchoLearnTheme.primaryBlue.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
-                      skill.type == SkillType.auditory ? Icons.graphic_eq : Icons.chat_bubble_outline,
+                      skill.type == SkillType.auditory ? Icons.hearing : Icons.forum,
                       color: EchoLearnTheme.primaryNavy,
-                      size: 32,
+                      size: 28,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 10),
                   Text(
                     skill.title,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold, 
+                      fontSize: 12,
+                      color: EchoLearnTheme.primaryNavy,
+                    ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 2),
                   Text(
                     skill.description,
                     textAlign: TextAlign.center,
-                    maxLines: 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 10, color: Colors.grey),
+                    style: const TextStyle(fontSize: 9, color: Colors.grey),
                   ),
                 ],
               ),

@@ -6,6 +6,7 @@ import '../services/audio_service.dart';
 import '../utils/theme.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
 
 class ExerciseScreen extends StatefulWidget {
@@ -108,16 +109,26 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           .replaceAll('آ', 'ا')
           .replaceAll('ة', 'ه')
           .replaceAll('ى', 'ي')
-          .replaceAll(RegExp(r'[^\w\s]'), '')
+          .replaceAll(RegExp(r'[^\u0600-\u06FF\s\d\w]'), '') // Keep Arabic, spaces, digits, and basic word chars
           .trim();
     }
 
     String normalizedResult = normalize(words);
     String normalizedAnswer = normalize(exercise.correctAnswer);
     
-    if (normalizedResult == normalizedAnswer || 
-        normalizedResult.contains(normalizedAnswer) || 
-        normalizedAnswer.contains(normalizedResult)) {
+    // Strict matching: Either exact match or word-for-word check for phrases
+    bool isMatch = false;
+    if (normalizedResult == normalizedAnswer) {
+      isMatch = true;
+    } else {
+      // Check if the answer word is one of the spoken words (for noise robustness)
+      List<String> resultWords = normalizedResult.split(' ');
+      if (resultWords.contains(normalizedAnswer)) {
+        isMatch = true;
+      }
+    }
+    
+    if (isMatch) {
       provider.submitAnswer(exercise.correctAnswer);
     } else {
       provider.submitAnswer(words);
@@ -177,33 +188,63 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             Future.microtask(() => _playExerciseAudio(exercise));
           }
 
-          return Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              children: [
-                LinearProgressIndicator(
-                  value: provider.exercises.isEmpty 
-                      ? 0 
-                      : provider.currentIndex / provider.exercises.length,
-                  borderRadius: BorderRadius.circular(10),
-                  minHeight: 10,
-                ),
-                const SizedBox(height: 40),
-                Text(
-                  exercise.prompt,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 30),
-                _buildInteractionArea(exercise),
-                const Spacer(),
-                if (exercise.type == ExerciseType.trueFalse)
-                  _buildTrueFalseOptions(provider)
-                else if (exercise.type == ExerciseType.multipleChoice)
-                  _buildMultipleChoiceOptions(provider, _shuffledOptions)
-                else if (exercise.type == ExerciseType.speak)
-                  _buildSpeakOptions(provider, exercise),
-              ],
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildVoiceToggle(),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: EchoLearnTheme.primaryNavy.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          'سؤال ${provider.currentIndex + 1} من ${provider.exercises.length}',
+                          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  LinearProgressIndicator(
+                    value: provider.exercises.isEmpty 
+                        ? 0 
+                        : (provider.currentIndex + 1) / provider.exercises.length,
+                    borderRadius: BorderRadius.circular(10),
+                    minHeight: 8,
+                  ),
+                  const SizedBox(height: 30),
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 15, offset: Offset(0, 5))],
+                      border: Border.all(color: EchoLearnTheme.primaryBlue.withValues(alpha: 0.2), width: 2),
+                    ),
+                    child: Text(
+                      exercise.prompt,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.cairo(fontSize: 20, fontWeight: FontWeight.w900, color: EchoLearnTheme.primaryNavy),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  _buildInteractionArea(exercise),
+                  const SizedBox(height: 30),
+                  if (exercise.type == ExerciseType.trueFalse)
+                    _buildTrueFalseOptions(provider)
+                  else if (exercise.type == ExerciseType.multipleChoice)
+                    _buildMultipleChoiceOptions(provider, _shuffledOptions)
+                  else if (exercise.type == ExerciseType.speak)
+                    _buildSpeakOptions(provider, exercise),
+                  const SizedBox(height: 40), // Extra padding at bottom
+                ],
+              ),
             ),
           );
         },
@@ -243,12 +284,12 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
                       color: _isPlayingAudio
-                          ? EchoLearnTheme.accentCyan.withValues(alpha: 0.25)
-                          : EchoLearnTheme.accentCyan.withValues(alpha: 0.1),
+                          ? EchoLearnTheme.primaryBlue.withValues(alpha: 0.25)
+                          : EchoLearnTheme.primaryBlue.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: EchoLearnTheme.accentCyan.withValues(
+                          color: EchoLearnTheme.primaryBlue.withValues(
                               alpha: _isPlayingAudio ? 0.5 : 0.2),
                           blurRadius: _isPlayingAudio ? 30 : 20,
                           spreadRadius: _isPlayingAudio ? 8 : 5,
@@ -258,7 +299,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     child: Icon(
                       _isPlayingAudio ? Icons.volume_up : Icons.play_circle_fill,
                       size: 60,
-                      color: EchoLearnTheme.accentCyan,
+                      color: EchoLearnTheme.primaryBlue,
                     ),
                   ),
                 ),
@@ -271,7 +312,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           _isPlayingAudio ? 'جاري تشغيل الصوت...' : 'اضغط لسماع الصوت مرة أخرى',
           style: TextStyle(
             color: _isPlayingAudio
-                ? EchoLearnTheme.accentCyan
+                ? EchoLearnTheme.primaryBlue
                 : EchoLearnTheme.primaryNavy,
             fontWeight: FontWeight.bold,
           )
@@ -320,7 +361,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: EchoLearnTheme.accentCyan.withValues(alpha: 0.1),
+              color: EchoLearnTheme.primaryBlue.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
@@ -340,11 +381,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 width: 100,
                 height: 100,
                 decoration: BoxDecoration(
-                  color: _isListening ? EchoLearnTheme.errorRed : EchoLearnTheme.accentCyan,
+                  color: _isListening ? EchoLearnTheme.errorRed : EchoLearnTheme.primaryBlue,
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: (_isListening ? EchoLearnTheme.errorRed : EchoLearnTheme.accentCyan).withValues(alpha: 0.4),
+                      color: (_isListening ? EchoLearnTheme.errorRed : EchoLearnTheme.primaryBlue).withValues(alpha: 0.4),
                       blurRadius: 15,
                       spreadRadius: 5,
                     )
@@ -369,6 +410,45 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildVoiceToggle() {
+    final audioService = AudioService.instance;
+    final isFemale = audioService.currentGender == VoiceGender.female;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+      child: OutlinedButton.icon(
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(color: EchoLearnTheme.primaryNavy, width: 1.5),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+        ),
+        icon: Icon(
+          isFemale ? Icons.woman : Icons.man,
+          color: EchoLearnTheme.primaryNavy,
+          size: 20,
+        ),
+        label: Text(
+          isFemale ? 'صوت ماما' : 'صوت بابا',
+          style: const TextStyle(
+            fontSize: 12, 
+            fontWeight: FontWeight.bold, 
+            color: EchoLearnTheme.primaryNavy
+          ),
+        ),
+        onPressed: () {
+          setState(() {
+            audioService.setVoiceGender(isFemale ? VoiceGender.male : VoiceGender.female);
+          });
+          // Re-play current exercise audio with new voice
+          final provider = context.read<ExerciseProvider>();
+          if (provider.currentExercise != null) {
+            _playExerciseAudio(provider.currentExercise!);
+          }
+        },
+      ),
     );
   }
 
@@ -516,7 +596,7 @@ class _AnimatedBarState extends State<_AnimatedBar> with SingleTickerProviderSta
           height: _animation.value,
           margin: const EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
-            color: EchoLearnTheme.accentCyan,
+            color: EchoLearnTheme.primaryBlue,
             borderRadius: BorderRadius.circular(4),
           ),
         );

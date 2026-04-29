@@ -42,6 +42,18 @@ class SkillCategory {
       type: SkillType.auditory,
     ),
     SkillCategory(
+      id: "aud_10",
+      title: "الوعي الإدراكي",
+      description: "إدراك أوجه التشابه والاختلاف بين الكلمات والحروف",
+      type: SkillType.auditory,
+    ),
+    SkillCategory(
+      id: "aud_11",
+      title: "الكلمة الناقصة",
+      description: "إكمال الكلمات الناقصة في الآيات والسور القصيرة",
+      type: SkillType.auditory,
+    ),
+    SkillCategory(
       id: "aud_5",
       title: "التمييز السمعي البصري",
       description: "ربط الصوت بالصورة أو الحرف",
